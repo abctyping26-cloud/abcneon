@@ -1,10 +1,34 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Lenis from "lenis";
+import { catalogCategories } from "./data/catalogData";
 
 export default function Home() {
+  const [selectedCatIndex, setSelectedCatIndex] = useState(0);
+  const [selectedSubIndex, setSelectedSubIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-loop through categories (pauses on hover)
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setSelectedCatIndex((prev) => (prev + 1) % catalogCategories.length);
+      setSelectedSubIndex(0);
+    }, 5500);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const activeCategory = catalogCategories[selectedCatIndex] || catalogCategories[0];
+  const activeSubItem = activeCategory.items[selectedSubIndex] || activeCategory.items[0];
+
+  const handleSelectCategory = (index: number) => {
+    setSelectedCatIndex(index);
+    setSelectedSubIndex(0);
+    setIsPaused(true);
+  };
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.1,
@@ -231,7 +255,7 @@ export default function Home() {
     {/* ================= WHAT DO YOU NEED HELP WITH? SECTION (OVERLAPPING SHEET) ================= */}
     <section
       id="services"
-      className="relative z-10 w-full min-h-screen bg-white py-16 sm:py-24 shadow-[0_-20px_50px_rgba(0,0,0,0.06)] flex flex-col justify-center"
+      className="relative z-10 w-full min-h-screen bg-white pt-16 sm:pt-24 pb-8 sm:pb-12 shadow-[0_-20px_50px_rgba(0,0,0,0.06)] flex flex-col justify-center"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           {/* Bento & Title Grid: Seamless Box Silhouette */}
@@ -433,6 +457,199 @@ export default function Home() {
                   />
                 </svg>
               </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION 3: EVERYTHING YOUR BUSINESS NEEDS (50:50 BENTO DIRECTORY) ================= */}
+      <section id="directory" className="relative z-10 w-full bg-white pt-10 sm:pt-14 pb-20 sm:pb-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Main Title in Top Left */}
+          <div className="mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-neutral-900 tracking-tight leading-[1.12] max-w-3xl">
+              Everything Your Business Needs,
+              <span className="block text-neutral-400 font-medium mt-1">From Start to Scale</span>
+            </h2>
+          </div>
+
+          {/* 50:50 Bento Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+            {/* ================= LEFT BENTO: MAIN MENU (50%) ================= */}
+            <div
+              className="lg:col-span-6 rounded-[6px] bg-[#f8f9fb] p-6 sm:p-8 flex flex-col justify-between border-0 shadow-2xs"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              <div>
+                {/* Header */}
+                <div className="pb-4 mb-5 border-b border-neutral-200/60">
+                  <h3 className="text-lg sm:text-xl font-bold text-neutral-900">
+                    Service Directory
+                  </h3>
+                </div>
+
+                {/* 8 Category Menu List */}
+                <div className="space-y-1.5">
+                  {catalogCategories.map((cat, idx) => {
+                    const isSelected = selectedCatIndex === idx;
+                    return (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => handleSelectCategory(idx)}
+                        className={`w-full text-left p-3.5 sm:p-4 rounded-[6px] transition-all duration-200 cursor-pointer flex items-center justify-between border-0 ${
+                          isSelected
+                            ? "shadow-xs font-bold"
+                            : "hover:bg-white/80 text-neutral-600 hover:text-neutral-900"
+                        }`}
+                        style={{
+                          backgroundColor: isSelected ? cat.bgColor : undefined,
+                        }}
+                      >
+                        <div className="flex items-center gap-3.5">
+                          <span
+                            className={`text-xs font-mono font-bold px-2 py-0.5 rounded-[4px] ${
+                              isSelected
+                                ? "bg-white/80 text-neutral-900"
+                                : "bg-neutral-200/60 text-neutral-500"
+                            }`}
+                          >
+                            {cat.number}
+                          </span>
+                          <span
+                            className={`text-sm sm:text-base tracking-tight ${
+                              isSelected ? "text-neutral-900 font-bold" : "font-medium"
+                            }`}
+                          >
+                            {cat.title}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-neutral-400 font-medium">
+                            {cat.items.length} services
+                          </span>
+                          <svg
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              isSelected ? "text-neutral-900 translate-x-0.5" : "text-neutral-300"
+                            }`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Loop hint footer */}
+              <div className="pt-6 mt-6 border-t border-neutral-200/60 flex items-center justify-between text-xs text-neutral-500">
+                <span>Select any domain or let the menu loop</span>
+                <span className="font-mono font-semibold text-neutral-700">
+                  {selectedCatIndex + 1} / {catalogCategories.length}
+                </span>
+              </div>
+            </div>
+
+            {/* ================= RIGHT BENTO: SUB-ITEMS & AI SERVICE DETAILS (50%) ================= */}
+            <div
+              className="lg:col-span-6 rounded-[6px] p-6 sm:p-8 flex flex-col justify-between border-0 shadow-2xs transition-colors duration-300"
+              style={{ backgroundColor: activeCategory.bgColor }}
+            >
+              <div>
+                {/* Active Category Header */}
+                <div className="mb-6">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight">
+                    {activeCategory.title}
+                  </h3>
+
+                  {(activeCategory.hook || activeCategory.note) && (
+                    <p className="text-sm sm:text-base text-neutral-600 mt-2 font-medium leading-relaxed">
+                      {activeCategory.hook || activeCategory.note}
+                    </p>
+                  )}
+                </div>
+
+                {/* Sub-Items Chips List (Interactive) */}
+                <div className="mb-6">
+                  <div className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2.5">
+                    Click Any Service To Inspect Details:
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {activeCategory.items.map((sub, sIdx) => {
+                      const isSubSelected = selectedSubIndex === sIdx;
+                      return (
+                        <button
+                          key={sub.name}
+                          type="button"
+                          onClick={() => setSelectedSubIndex(sIdx)}
+                          className={`px-3 py-1.5 rounded-[6px] text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer border-0 ${
+                            isSubSelected
+                              ? "bg-neutral-900 text-white shadow-xs scale-[1.02]"
+                              : "bg-white/80 hover:bg-white text-neutral-800 shadow-2xs"
+                          }`}
+                        >
+                          {sub.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Details Card for the Clicked Sub-Item */}
+                <div className="rounded-[6px] bg-white p-5 sm:p-6 shadow-sm border-0">
+                  <h4 className="text-lg sm:text-xl font-bold text-neutral-900 tracking-tight">
+                    {activeSubItem.name}
+                  </h4>
+                  <p className="text-xs sm:text-sm font-medium text-[#2563eb] mt-0.5">
+                    {activeSubItem.detail.tagline}
+                  </p>
+
+                  <p className="text-xs sm:text-sm text-neutral-600 mt-2.5 leading-relaxed">
+                    {activeSubItem.detail.overview}
+                  </p>
+
+                  {/* Key Deliverables */}
+                  <div className="mt-4 pt-3 border-t border-neutral-100">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2">
+                      Included Deliverables
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                      {activeSubItem.detail.deliverables.map((item, dIdx) => (
+                        <div key={dIdx} className="flex items-center gap-2 text-xs text-neutral-700">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] flex-shrink-0" />
+                          <span className="truncate">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Prerequisites */}
+                  {activeSubItem.detail.prerequisites && (
+                    <div className="mt-3 text-[11px] text-neutral-400">
+                      <span className="font-semibold text-neutral-500">Prerequisites:</span> {activeSubItem.detail.prerequisites}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Action Button: Category CTA */}
+              <div className="pt-6 mt-6 flex items-center justify-end">
+                <button
+                  type="button"
+                  className="w-full sm:w-auto px-7 py-3 rounded-[6px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2 border-0"
+                >
+                  <span>{activeCategory.ctaText}</span>
+                  <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
