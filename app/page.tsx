@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Lenis from "lenis";
 import { catalogCategories } from "./data/catalogData";
+import Header from "./components/Header";
 
 export default function Home() {
   const [selectedCatIndex, setSelectedCatIndex] = useState(0);
@@ -27,6 +28,16 @@ export default function Home() {
     setSelectedCatIndex(index);
     setSelectedSubIndex(0);
     setIsPaused(true);
+  };
+
+  const handleSelectServiceFromHeader = (catIndex: number, subIndex: number = 0) => {
+    setSelectedCatIndex(catIndex);
+    setSelectedSubIndex(subIndex);
+    setIsPaused(true);
+    const directorySection = document.getElementById("directory");
+    if (directorySection) {
+      directorySection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -57,13 +68,13 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-white text-neutral-900 select-none">
-      {/* ================= STICKY HERO CONTAINER ================= */}
-      <div className="sticky top-0 z-0 min-h-screen flex flex-col justify-between bg-white">
-        {/* Header Bar: Clean bar without content as requested */}
-        <header className="w-full h-16 sm:h-20 bg-white border-b border-neutral-100 flex-shrink-0" />
+      {/* ================= STICKY HEADER ================= */}
+      <Header onSelectService={handleSelectServiceFromHeader} />
 
+      {/* ================= STICKY HERO CONTAINER ================= */}
+      <div className="sticky top-[72px] sm:top-[80px] z-0 min-h-[calc(100vh-72px)] sm:min-h-[calc(100vh-80px)] flex flex-col justify-center bg-white">
         {/* Main Hero Section */}
-        <main className="relative flex-1 flex items-center justify-center overflow-hidden py-8 sm:py-12 lg:py-14 bg-white">
+        <main className="relative flex-1 flex items-center justify-center overflow-hidden py-6 sm:py-10 lg:py-12 bg-white">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* ================= LEFT COLUMN ================= */}
