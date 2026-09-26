@@ -9,6 +9,7 @@ import IdeaToLaunchSection from "./components/IdeaToLaunchSection";
 import WhatBusinessesNeedSection from "./components/WhatBusinessesNeedSection";
 import WhyUsSection from "./components/WhyUsSection";
 import RequirementToResolutionSection from "./components/RequirementToResolutionSection";
+import CtaDisksSection from "./components/CtaDisksSection";
 
 export default function Home() {
   const [selectedCatIndex, setSelectedCatIndex] = useState(0);
@@ -689,6 +690,9 @@ export default function Home() {
 
       {/* ================= SECTION 7: FROM REQUIREMENT TO RESOLUTION (ZIG-ZAG TIMELINE CAPSULES) ================= */}
       <RequirementToResolutionSection />
+
+      {/* ================= SECTION 8: 3-DISK DVD CTA SECTION ================= */}
+      <CtaDisksSection />
     </div>
   );
 }

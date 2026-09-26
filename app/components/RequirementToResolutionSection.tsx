@@ -66,7 +66,7 @@ export default function RequirementToResolutionSection() {
   return (
     <section
       id="requirement-to-resolution"
-      className="relative z-10 w-full overflow-hidden pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-28 lg:pb-36 bg-gradient-to-b from-[#eaf2fc] via-white to-white"
+      className="relative z-10 w-full overflow-hidden pt-12 sm:pt-16 lg:pt-20 pb-6 sm:pb-8 lg:pb-10 bg-gradient-to-b from-[#eaf2fc] via-white to-white"
     >
       {/* Background Soft Lighting / Grid Pattern */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.035]" />
@@ -84,7 +84,7 @@ export default function RequirementToResolutionSection() {
         </div>
 
         {/* ================= DESKTOP HORIZONTAL TIMELINE (2X ZIG-ZAG CAPSULES) ================= */}
-        <div className="hidden lg:block mt-6 sm:mt-8 lg:mt-10 mb-12 relative w-full">
+        <div className="hidden lg:block mt-6 sm:mt-8 lg:mt-10 mb-4 relative w-full">
           {/* Continuous Center Horizontal Line */}
           <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#2563eb]/40 to-transparent z-0" />
 
