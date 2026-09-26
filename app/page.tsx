@@ -7,6 +7,8 @@ import { catalogCategories } from "./data/catalogData";
 import Header from "./components/Header";
 import IdeaToLaunchSection from "./components/IdeaToLaunchSection";
 import WhatBusinessesNeedSection from "./components/WhatBusinessesNeedSection";
+import WhyUsSection from "./components/WhyUsSection";
+import RequirementToResolutionSection from "./components/RequirementToResolutionSection";
 
 export default function Home() {
   const [selectedCatIndex, setSelectedCatIndex] = useState(0);
@@ -681,6 +683,12 @@ export default function Home() {
 
       {/* ================= SECTION 5: WHAT BUSINESSES NEED MOST (SHOWCASE & HIGH DEMAND MARQUEE) ================= */}
       <WhatBusinessesNeedSection />
+
+      {/* ================= SECTION 6: WHY US (TABLET FRAME WITH FLOWING GLOWING LINES) ================= */}
+      <WhyUsSection />
+
+      {/* ================= SECTION 7: FROM REQUIREMENT TO RESOLUTION (ZIG-ZAG TIMELINE CAPSULES) ================= */}
+      <RequirementToResolutionSection />
     </div>
   );
 }

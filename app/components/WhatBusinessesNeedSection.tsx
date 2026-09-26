@@ -432,7 +432,7 @@ export default function WhatBusinessesNeedSection() {
   return (
     <section
       id="businesses-need-most"
-      className="relative z-10 w-full bg-white pt-4 sm:pt-6 lg:pt-8 pb-20 sm:pb-28 lg:pb-32 overflow-visible"
+      className="relative z-10 w-full bg-white pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12 overflow-visible"
     >
       {/* ================= 3 ALTERNATING ZIG-ZAG MARQUEE ROWS ================= */}
       <div className="space-y-4 sm:space-y-5 lg:space-y-6">
