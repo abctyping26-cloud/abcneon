@@ -342,6 +342,7 @@ function RenderShowcaseItem({ item }: { item: ShowcaseItem }) {
 export default function WhatBusinessesNeedSection() {
   const ctaRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let rafId: number;
@@ -365,6 +366,11 @@ export default function WhatBusinessesNeedSection() {
         box.style.backgroundColor = "#2563eb";
         box.style.borderColor = "#2563eb";
         box.style.boxShadow = "none";
+        if (contentRef.current) {
+          contentRef.current.style.opacity = "0";
+          contentRef.current.style.pointerEvents = "none";
+          contentRef.current.style.transform = "translateY(24px) scale(0.97)";
+        }
         return;
       }
 
@@ -377,7 +383,13 @@ export default function WhatBusinessesNeedSection() {
       const startWidth = Math.min(240, targetWidth);
       const currentWidth = Math.round(startWidth + (targetWidth - startWidth) * eased);
 
-      const targetHeight = Math.min(620, Math.max(460, windowHeight * 0.65));
+      const isMobile = windowWidth < 640;
+      const isTablet = windowWidth < 1024;
+      const targetHeight = isMobile
+        ? 620
+        : isTablet
+        ? 560
+        : Math.min(580, Math.max(480, windowHeight * 0.65));
       const startHeight = 3;
       const currentHeight = Math.round(startHeight + (targetHeight - startHeight) * eased);
 
@@ -392,6 +404,13 @@ export default function WhatBusinessesNeedSection() {
       box.style.boxShadow = isExpanded
         ? `0 25px 60px -15px rgba(37, 99, 235, ${0.35 * eased})`
         : "none";
+
+      if (contentRef.current) {
+        const contentProgress = Math.max(0, Math.min(1, (eased - 0.15) / 0.7));
+        contentRef.current.style.opacity = `${contentProgress}`;
+        contentRef.current.style.pointerEvents = contentProgress > 0.75 ? "auto" : "none";
+        contentRef.current.style.transform = `translateY(${Math.round(20 * (1 - contentProgress))}px) scale(${0.96 + 0.04 * contentProgress})`;
+      }
     };
 
     const onScroll = () => {
@@ -413,7 +432,7 @@ export default function WhatBusinessesNeedSection() {
   return (
     <section
       id="businesses-need-most"
-      className="relative z-10 w-full bg-white pt-4 sm:pt-6 lg:pt-8 pb-20 sm:pb-28 lg:pb-32 overflow-hidden"
+      className="relative z-10 w-full bg-white pt-4 sm:pt-6 lg:pt-8 pb-20 sm:pb-28 lg:pb-32 overflow-visible"
     >
       {/* ================= 3 ALTERNATING ZIG-ZAG MARQUEE ROWS ================= */}
       <div className="space-y-4 sm:space-y-5 lg:space-y-6">
@@ -524,7 +543,225 @@ export default function WhatBusinessesNeedSection() {
           }}
           className="border-2 overflow-hidden flex-shrink-0 transition-[background-color,border-color] duration-150"
         >
-          {/* CONTAINER WITHOUT NOTHING - COMPLETELY EMPTY */}
+          {/* INNER CONTENT REVEALED AS CONTAINER EXPANDS */}
+          <div
+            ref={contentRef}
+            style={{ opacity: 0, pointerEvents: "none" }}
+            className="w-full h-full flex items-center justify-center p-6 sm:p-8 lg:p-12 overflow-y-auto lg:overflow-hidden select-none"
+          >
+            <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left Side: Main Hook & CTA */}
+              <div className="lg:col-span-7 flex flex-col items-start space-y-4 sm:space-y-6 text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-white text-xs font-semibold tracking-wide backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+                  <span>Zero-to-One Strategy</span>
+                </div>
+
+                <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-black text-white tracking-tight leading-[1.08] max-w-xl">
+                  Have an idea but don&apos;t know what to do next?
+                </h3>
+
+                <p className="text-blue-100 text-sm sm:text-base lg:text-lg font-normal leading-relaxed max-w-lg">
+                  Turn raw ambition into a viable, high-growth enterprise. We map out your company structure, regulatory clearances, tech stack, and go-to-market execution plan.
+                </p>
+
+                <div className="pt-1 sm:pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const directorySection = document.getElementById("directory");
+                      if (directorySection) {
+                        directorySection.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-[6px] bg-white text-[#2563eb] hover:bg-neutral-100 font-bold text-sm sm:text-base transition-all duration-200 shadow-xl hover:shadow-2xl active:scale-95 cursor-pointer group"
+                  >
+                    <span>Let&apos;s Plan It Together</span>
+                    <svg
+                      className="w-4 h-4 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                  <span className="text-xs sm:text-sm text-blue-100/90 font-medium flex items-center gap-1.5">
+                    <svg className="w-4 h-4 text-emerald-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>Free 30-min roadmap session</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Side: Clipboard & Blended Pie Chart */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
+                <div className="relative w-full max-w-sm sm:max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-[12px] p-5 sm:p-6 shadow-2xl text-white">
+                  {/* Clipboard Metallic Clip */}
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+                    <div className="w-20 h-3.5 bg-gradient-to-b from-slate-100 via-slate-200 to-slate-400 rounded-t-md border-t border-x border-slate-300 shadow-xs flex items-center justify-center">
+                      <div className="w-6 h-1 bg-slate-700/40 rounded-full" />
+                    </div>
+                    <div className="w-28 h-2.5 bg-gradient-to-b from-slate-300 to-slate-500 rounded-b-xs border border-slate-400 shadow-sm flex items-center justify-between px-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-700/70 border border-slate-400/80" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-slate-700/70 border border-slate-400/80" />
+                    </div>
+                  </div>
+
+                  {/* Clipboard Header */}
+                  <div className="flex items-center justify-between border-b border-white/15 pb-3">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                      <span className="text-xs font-bold tracking-wider uppercase text-blue-100">
+                        Execution Blueprint
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-semibold tracking-wide flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      Validated
+                    </span>
+                  </div>
+
+                  {/* Pie / Donut Chart & Legend */}
+                  <div className="py-4 flex items-center justify-between gap-3 sm:gap-5">
+                    {/* SVG Pie / Donut Chart */}
+                    <div className="relative flex-shrink-0 w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center">
+                      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 160 160">
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="54"
+                          fill="none"
+                          stroke="rgba(255, 255, 255, 0.12)"
+                          strokeWidth="15"
+                        />
+                        {/* 35% Tech & MVP */}
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="54"
+                          fill="none"
+                          stroke="#38bdf8"
+                          strokeWidth="15"
+                          strokeDasharray="118.75 339.29"
+                          strokeDashoffset="0"
+                        />
+                        {/* 25% Legal & Compliances */}
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="54"
+                          fill="none"
+                          stroke="#34d399"
+                          strokeWidth="15"
+                          strokeDasharray="84.82 339.29"
+                          strokeDashoffset="-118.75"
+                        />
+                        {/* 25% Brand & GTM */}
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="54"
+                          fill="none"
+                          stroke="#fbbf24"
+                          strokeWidth="15"
+                          strokeDasharray="84.82 339.29"
+                          strokeDashoffset="-203.57"
+                        />
+                        {/* 15% Operations */}
+                        <circle
+                          cx="80"
+                          cy="80"
+                          r="54"
+                          fill="none"
+                          stroke="#ffffff"
+                          strokeWidth="15"
+                          strokeDasharray="50.89 339.29"
+                          strokeDashoffset="-288.39"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <span className="text-base sm:text-lg font-black text-white leading-none">100%</span>
+                        <span className="text-[9px] font-bold text-blue-200 tracking-wider uppercase mt-0.5">READY</span>
+                      </div>
+                    </div>
+
+                    {/* Breakdown Legend */}
+                    <div className="flex-1 space-y-1.5 text-xs">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#38bdf8] flex-shrink-0" />
+                          <span className="text-blue-100 font-medium text-[11px] sm:text-xs">Tech & MVP</span>
+                        </div>
+                        <span className="font-bold text-white text-[11px] sm:text-xs">35%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#34d399] flex-shrink-0" />
+                          <span className="text-blue-100 font-medium text-[11px] sm:text-xs">Legal & GST</span>
+                        </div>
+                        <span className="font-bold text-white text-[11px] sm:text-xs">25%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#fbbf24] flex-shrink-0" />
+                          <span className="text-blue-100 font-medium text-[11px] sm:text-xs">Brand & GTM</span>
+                        </div>
+                        <span className="font-bold text-white text-[11px] sm:text-xs">25%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-white flex-shrink-0" />
+                          <span className="text-blue-100 font-medium text-[11px] sm:text-xs">Operations</span>
+                        </div>
+                        <span className="font-bold text-white text-[11px] sm:text-xs">15%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Clipboard Action Checklist */}
+                  <div className="pt-3 border-t border-white/15 space-y-2">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-blue-200/80">
+                      Action Checklist
+                    </div>
+                    <div className="space-y-1.5 text-blue-50">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-emerald-400/25 text-emerald-300 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-2.5 h-2.5 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="font-medium text-[11px] sm:text-xs">Legal Structure & Registration</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-emerald-400/25 text-emerald-300 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-2.5 h-2.5 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="font-medium text-[11px] sm:text-xs">MVP Architecture & Sprint Scoping</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-emerald-400/25 text-emerald-300 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-2.5 h-2.5 stroke-[3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="font-medium text-[11px] sm:text-xs">Go-To-Market Launch Funnel</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
