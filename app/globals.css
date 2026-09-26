@@ -70,3 +70,37 @@ body {
 .animate-float-delayed {
   animation: float-delayed 5.2s ease-in-out infinite 1.6s;
 }
+
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 34s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 34s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row:hover .animate-marquee-left,
+.marquee-row:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+

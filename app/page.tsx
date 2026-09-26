@@ -5,6 +5,8 @@ import Image from "next/image";
 import Lenis from "lenis";
 import { catalogCategories } from "./data/catalogData";
 import Header from "./components/Header";
+import IdeaToLaunchSection from "./components/IdeaToLaunchSection";
+import WhatBusinessesNeedSection from "./components/WhatBusinessesNeedSection";
 
 export default function Home() {
   const [selectedCatIndex, setSelectedCatIndex] = useState(0);
@@ -473,8 +475,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECTION 3: EVERYTHING YOUR BUSINESS NEEDS (50:50 BENTO DIRECTORY) ================= */}
-      <section id="directory" className="relative z-10 w-full bg-white pt-10 sm:pt-14 pb-20 sm:pb-28">
+      {/* ================= SECTIONS 3 & 4 WRAPPER (REVERSE OVERLAP / UNDER-SHEET REVEAL) ================= */}
+      <div className="relative z-10 bg-white">
+        {/* ================= SECTION 3: EVERYTHING YOUR BUSINESS NEEDS (50:50 BENTO DIRECTORY) ================= */}
+        <section
+          id="directory"
+          className="relative z-20 w-full bg-white pt-10 sm:pt-14 pb-20 sm:pb-28 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.12)]"
+        >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main Title in Top Left */}
           <div className="mb-8 sm:mb-12">
@@ -665,6 +672,15 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+        {/* ================= SECTION 4: IDEA TO LAUNCH TIMELINE & HOOK (REVEALED UNDERNEATH) ================= */}
+        <div className="relative lg:sticky lg:bottom-0 z-0 w-full min-h-screen bg-white pt-12 sm:pt-16 lg:pt-[80px] pb-4 sm:pb-6 flex flex-col justify-end">
+          <IdeaToLaunchSection />
+        </div>
+      </div>
+
+      {/* ================= SECTION 5: WHAT BUSINESSES NEED MOST (SHOWCASE & HIGH DEMAND MARQUEE) ================= */}
+      <WhatBusinessesNeedSection />
     </div>
   );
 }
