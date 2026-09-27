@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 export default function Home() {
   const [selectedCatIndex, setSelectedCatIndex] = useState(0);
   const [selectedSubIndex, setSelectedSubIndex] = useState(0);
+  const [mobileOpenCatIndex, setMobileOpenCatIndex] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
 
   // Auto-loop through categories (pauses on hover)
@@ -36,9 +37,15 @@ export default function Home() {
     setIsPaused(true);
   };
 
+  const handleCategoryClick = (index: number) => {
+    handleSelectCategory(index);
+    setMobileOpenCatIndex((prev) => (prev === index ? null : index));
+  };
+
   const handleSelectServiceFromHeader = (catIndex: number, subIndex: number = 0) => {
     setSelectedCatIndex(catIndex);
     setSelectedSubIndex(subIndex);
+    setMobileOpenCatIndex(catIndex);
     setIsPaused(true);
     const directorySection = document.getElementById("directory");
     if (directorySection) {
@@ -517,62 +524,187 @@ export default function Home() {
                 <div className="space-y-1.5">
                   {catalogCategories.map((cat, idx) => {
                     const isSelected = selectedCatIndex === idx;
-                    return (
-                      <button
-                        key={cat.id}
-                        type="button"
-                        onClick={() => handleSelectCategory(idx)}
-                        className={`w-full text-left p-3.5 sm:p-4 rounded-[6px] transition-all duration-200 cursor-pointer flex items-center justify-between border-0 ${
-                          isSelected
-                            ? "shadow-xs font-bold"
-                            : "hover:bg-white/80 text-neutral-600 hover:text-neutral-900"
-                        }`}
-                        style={{
-                          backgroundColor: isSelected ? cat.bgColor : undefined,
-                        }}
-                      >
-                        <div className="flex items-center gap-3.5">
-                          <span
-                            className={`text-xs font-mono font-bold px-2 py-0.5 rounded-[4px] ${
-                              isSelected
-                                ? "bg-white/80 text-neutral-900"
-                                : "bg-neutral-200/60 text-neutral-500"
-                            }`}
-                          >
-                            {cat.number}
-                          </span>
-                          <span
-                            className={`text-sm sm:text-base tracking-tight ${
-                              isSelected ? "text-neutral-900 font-bold" : "font-medium"
-                            }`}
-                          >
-                            {cat.title}
-                          </span>
-                        </div>
+                    const isMobileOpen = mobileOpenCatIndex === idx;
+                    const activeMobileSub =
+                      cat.items[selectedCatIndex === idx ? selectedSubIndex : 0] || cat.items[0];
 
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-neutral-400 font-medium">
-                            {cat.items.length} services
-                          </span>
-                          <svg
-                            className={`w-4 h-4 transition-transform duration-200 ${
-                              isSelected ? "text-neutral-900 translate-x-0.5" : "text-neutral-300"
-                            }`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                          </svg>
+                    return (
+                      <div key={cat.id} className="w-full">
+                        <button
+                          type="button"
+                          onClick={() => handleCategoryClick(idx)}
+                          className={`w-full text-left p-3.5 sm:p-4 rounded-[6px] transition-all duration-200 cursor-pointer flex items-center justify-between border-0 bg-[var(--mobile-bg)] lg:bg-[var(--desktop-bg)] ${
+                            isMobileOpen
+                              ? "shadow-xs font-bold text-neutral-900"
+                              : "hover:bg-white/80 text-neutral-600 hover:text-neutral-900"
+                          } ${
+                            isSelected
+                              ? "lg:shadow-xs lg:font-bold lg:text-neutral-900"
+                              : "lg:shadow-none lg:font-medium lg:text-neutral-600 lg:hover:text-neutral-900"
+                          }`}
+                          style={{
+                            "--mobile-bg": isMobileOpen ? cat.bgColor : "transparent",
+                            "--desktop-bg": isSelected ? cat.bgColor : "transparent",
+                          } as React.CSSProperties}
+                        >
+                          <div className="flex items-center gap-3.5">
+                            <span
+                              className={`text-xs font-mono font-bold px-2 py-0.5 rounded-[4px] ${
+                                isMobileOpen
+                                  ? "bg-white/80 text-neutral-900"
+                                  : "bg-neutral-200/60 text-neutral-500"
+                              } ${
+                                isSelected
+                                  ? "lg:bg-white/80 lg:text-neutral-900"
+                                  : "lg:bg-neutral-200/60 lg:text-neutral-500"
+                              }`}
+                            >
+                              {cat.number}
+                            </span>
+                            <span
+                              className={`text-sm sm:text-base tracking-tight ${
+                                isMobileOpen ? "text-neutral-900 font-bold" : "font-medium"
+                              } ${
+                                isSelected ? "lg:text-neutral-900 lg:font-bold" : "lg:font-medium"
+                              }`}
+                            >
+                              {cat.title}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-neutral-400 font-medium">
+                              {cat.items.length} services
+                            </span>
+                            <svg
+                              className={`w-4 h-4 transition-transform duration-200 ${
+                                isMobileOpen ? "rotate-90 text-neutral-900" : "rotate-0 text-neutral-300"
+                              } ${
+                                isSelected ? "lg:text-neutral-900 lg:translate-x-0.5" : "lg:text-neutral-300 lg:translate-x-0"
+                              } lg:rotate-0`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </button>
+
+                        {/* Mobile Inline Dropdown (Hidden on Laptop/Desktop) */}
+                        <div
+                          className={`lg:hidden mobile-accordion-wrapper ${
+                            isMobileOpen ? "is-open" : ""
+                          }`}
+                        >
+                          <div className="mobile-accordion-inner">
+                            <div className="pt-2 pb-1">
+                              <div
+                                className="rounded-[6px] p-4 sm:p-5 border border-neutral-200/60 shadow-2xs transition-colors duration-200"
+                                style={{ backgroundColor: cat.bgColor }}
+                              >
+                                {/* Hook / Note */}
+                                {(cat.hook || cat.note) && (
+                                  <p className="text-xs sm:text-sm text-neutral-600 mb-4 font-medium leading-relaxed">
+                                    {cat.hook || cat.note}
+                                  </p>
+                                )}
+
+                                {/* Sub-Items Chips List (Interactive) */}
+                                <div className="mb-4">
+                                  <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2">
+                                    Click Any Service To Inspect Details:
+                                  </div>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {cat.items.map((sub, sIdx) => {
+                                      const isSubSelected =
+                                        selectedCatIndex === idx
+                                          ? selectedSubIndex === sIdx
+                                          : sIdx === 0;
+                                      return (
+                                        <button
+                                          key={sub.name}
+                                          type="button"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedCatIndex(idx);
+                                            setSelectedSubIndex(sIdx);
+                                            setIsPaused(true);
+                                          }}
+                                          className={`px-3 py-1.5 rounded-[6px] text-xs font-semibold transition-all duration-200 cursor-pointer border-0 ${
+                                            isSubSelected
+                                              ? "bg-neutral-900 text-white shadow-xs scale-[1.02]"
+                                              : "bg-white/80 hover:bg-white text-neutral-800 shadow-2xs"
+                                          }`}
+                                        >
+                                          {sub.name}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+
+                                {/* Details Card for the Clicked Sub-Item */}
+                                <div className="rounded-[6px] bg-white p-4 sm:p-5 shadow-sm border-0">
+                                  <h4 className="text-base sm:text-lg font-bold text-neutral-900 tracking-tight">
+                                    {activeMobileSub.name}
+                                  </h4>
+                                  <p className="text-xs sm:text-sm font-medium text-[#2563eb] mt-0.5">
+                                    {activeMobileSub.detail.tagline}
+                                  </p>
+
+                                  <p className="text-xs sm:text-sm text-neutral-600 mt-2 leading-relaxed">
+                                    {activeMobileSub.detail.overview}
+                                  </p>
+
+                                  {/* Key Deliverables */}
+                                  <div className="mt-3.5 pt-3 border-t border-neutral-100">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1.5">
+                                      Included Deliverables
+                                    </div>
+                                    <div className="grid grid-cols-1 gap-1.5">
+                                      {activeMobileSub.detail.deliverables.map((item, dIdx) => (
+                                        <div key={dIdx} className="flex items-center gap-2 text-xs text-neutral-700">
+                                          <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] flex-shrink-0" />
+                                          <span className="leading-snug">{item}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  {/* Prerequisites */}
+                                  {activeMobileSub.detail.prerequisites && (
+                                    <div className="mt-2.5 text-[11px] text-neutral-400">
+                                      <span className="font-semibold text-neutral-500">Prerequisites:</span> {activeMobileSub.detail.prerequisites}
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Action Button: Category CTA */}
+                                <div className="pt-4 mt-3 flex items-center justify-end">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="w-full sm:w-auto px-6 py-2.5 rounded-[6px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2 border-0"
+                                  >
+                                    <span>{cat.ctaText}</span>
+                                    <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
               </div>
 
               {/* Loop hint footer */}
-              <div className="pt-6 mt-6 border-t border-neutral-200/60 flex items-center justify-between text-xs text-neutral-500">
+              <div className="hidden lg:flex pt-6 mt-6 border-t border-neutral-200/60 items-center justify-between text-xs text-neutral-500">
                 <span>Select any domain or let the menu loop</span>
                 <span className="font-mono font-semibold text-neutral-700">
                   {selectedCatIndex + 1} / {catalogCategories.length}
@@ -582,7 +714,7 @@ export default function Home() {
 
             {/* ================= RIGHT BENTO: SUB-ITEMS & AI SERVICE DETAILS (50%) ================= */}
             <div
-              className="lg:col-span-6 rounded-[6px] p-6 sm:p-8 flex flex-col justify-between border-0 shadow-2xs transition-colors duration-300"
+              className="hidden lg:flex lg:col-span-6 rounded-[6px] p-6 sm:p-8 flex-col justify-between border-0 shadow-2xs transition-colors duration-300"
               style={{ backgroundColor: activeCategory.bgColor }}
             >
               <div>

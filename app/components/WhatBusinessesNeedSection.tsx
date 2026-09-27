@@ -386,9 +386,9 @@ export default function WhatBusinessesNeedSection() {
       const isMobile = windowWidth < 640;
       const isTablet = windowWidth < 1024;
       const targetHeight = isMobile
-        ? 620
+        ? 760
         : isTablet
-        ? 560
+        ? 620
         : Math.min(580, Math.max(480, windowHeight * 0.65));
       const startHeight = 3;
       const currentHeight = Math.round(startHeight + (targetHeight - startHeight) * eased);
@@ -432,7 +432,7 @@ export default function WhatBusinessesNeedSection() {
   return (
     <section
       id="businesses-need-most"
-      className="relative z-10 w-full bg-white pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-10 lg:pb-12 overflow-visible"
+      className="relative z-10 w-full bg-white pt-10 sm:pt-14 lg:pt-8 pb-16 sm:pb-20 lg:pb-12 overflow-visible"
     >
       {/* ================= 3 ALTERNATING ZIG-ZAG MARQUEE ROWS ================= */}
       <div className="space-y-4 sm:space-y-5 lg:space-y-6">
@@ -531,7 +531,7 @@ export default function WhatBusinessesNeedSection() {
       </div>
 
       {/* ================= MORPHING BORDER (TRANSFORMS FROM BORDER INTO CONTAINER AS IT CROSSES FROM BOTTOM) ================= */}
-      <div className="mt-8 sm:mt-12 w-full flex justify-center px-4 sm:px-6 lg:px-8">
+      <div className="mt-12 sm:mt-16 lg:mt-12 mb-8 sm:mb-10 lg:mb-0 w-full flex justify-center px-4 sm:px-6 lg:px-8">
         <div
           ref={boxRef}
           style={{
@@ -547,7 +547,7 @@ export default function WhatBusinessesNeedSection() {
           <div
             ref={contentRef}
             style={{ opacity: 0, pointerEvents: "none" }}
-            className="w-full h-full flex items-center justify-center p-6 sm:p-8 lg:p-12 overflow-y-auto lg:overflow-hidden select-none"
+            className="w-full h-full flex items-start lg:items-center justify-center p-5 sm:p-6 lg:p-12 overflow-y-auto lg:overflow-hidden select-none"
           >
             <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Left Side: Main Hook & CTA */}

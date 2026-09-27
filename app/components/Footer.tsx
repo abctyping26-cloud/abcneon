@@ -42,10 +42,10 @@ export default function Footer() {
             </div>
             <div>
               <div className="flex items-center gap-3">
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+                <span className="text-2xl sm:text-3xl font-black tracking-tight text-white whitespace-nowrap">
                   ABC NEON
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-white/15 border border-white/20 text-[10px] sm:text-xs font-semibold tracking-wide text-white">
+                <span className="hidden lg:inline-flex px-2.5 py-0.5 rounded-full bg-white/15 border border-white/20 text-[10px] sm:text-xs font-semibold tracking-wide text-white">
                   Unified Business Platform
                 </span>
               </div>
@@ -124,10 +124,12 @@ export default function Footer() {
         </div>
 
         {/* ================= BOTTOM COPYRIGHT & LEGAL BAR ================= */}
-        <div className="pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-blue-100/80">
-          <div>© {new Date().getFullYear()} ABC Neon Technologies. All rights reserved.</div>
+        <div className="pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-blue-100/80 text-center sm:text-left">
+          <div className="w-full sm:w-auto text-center sm:text-left">
+            © {new Date().getFullYear()} ABC Neon Technologies. All rights reserved.
+          </div>
 
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+          <div className="w-full sm:w-auto flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-2 sm:gap-6">
             <button
               type="button"
               onClick={scrollToDirectory}
