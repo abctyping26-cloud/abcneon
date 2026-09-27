@@ -10,6 +10,7 @@ import WhatBusinessesNeedSection from "./components/WhatBusinessesNeedSection";
 import WhyUsSection from "./components/WhyUsSection";
 import RequirementToResolutionSection from "./components/RequirementToResolutionSection";
 import CtaDisksSection from "./components/CtaDisksSection";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [selectedCatIndex, setSelectedCatIndex] = useState(0);
@@ -693,6 +694,9 @@ export default function Home() {
 
       {/* ================= SECTION 8: 3-DISK DVD CTA SECTION ================= */}
       <CtaDisksSection />
+
+      {/* ================= SECTION 9: 100VH ALL-BLUE MASTER FOOTER ================= */}
+      <Footer />
     </div>
   );
 }
