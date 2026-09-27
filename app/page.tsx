@@ -86,7 +86,7 @@ export default function Home() {
             {/* ================= LEFT COLUMN ================= */}
             <div className="lg:col-span-6 xl:col-span-5 space-y-6">
               {/* Category Capsule */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-50 border border-neutral-200/90 text-xs sm:text-[13px] font-semibold text-neutral-800 shadow-2xs">
+              <div className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-50 border border-neutral-200/90 text-xs sm:text-[13px] font-semibold text-neutral-800 shadow-2xs">
                 <span className="w-2 h-2 rounded-full bg-[#2563eb]" />
                 <span>Business Setup • Compliance • Finance • Technology • Growth</span>
               </div>
@@ -135,8 +135,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ================= RIGHT COLUMN (IMAGE SPACE + 6 FLOATING BOXES) ================= */}
-            <div className="lg:col-span-6 xl:col-span-7 flex justify-center lg:justify-end">
+
+
+            {/* ================= RIGHT COLUMN (IMAGE SPACE + 6 FLOATING BOXES) - DESKTOP ONLY ================= */}
+            <div className="hidden lg:flex lg:col-span-6 xl:col-span-7 justify-center lg:justify-end">
               <div className="relative w-full max-w-[480px] sm:max-w-[540px] flex items-center justify-center py-10 px-4">
                 {/* 1. CENTRAL PERSON IMAGE CONTAINER */}
                 <div className="w-[300px] sm:w-[380px] lg:w-[410px] h-[460px] sm:h-[530px] rounded-[36px] sm:rounded-[40px] overflow-hidden relative shadow-2xl shadow-neutral-300/60 border border-neutral-100 bg-neutral-100 flex-shrink-0">
