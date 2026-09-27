@@ -285,16 +285,16 @@ export default function Home() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           {/* Bento & Title Grid: Seamless Box Silhouette */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-5">
             {/* 1. START A BUSINESS (Row 1 Left - Pastel Mint) */}
-            <div className="group order-2 lg:order-1 sm:col-span-1 lg:col-span-4 rounded-[6px] bg-[#eaf7ee] p-7 sm:p-8 flex flex-col justify-center min-h-[160px] sm:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
-              <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">
+            <div className="group order-2 lg:order-1 col-span-1 lg:col-span-4 rounded-[6px] bg-[#eaf7ee] aspect-square lg:aspect-auto p-3.5 sm:p-5 lg:p-8 flex flex-col justify-center min-h-0 lg:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
+              <h3 className="text-sm sm:text-base lg:text-2xl font-bold text-neutral-900 tracking-tight leading-snug">
                 Start a Business
               </h3>
-              <p className="text-sm sm:text-base text-neutral-600 mt-2 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-xs lg:text-base text-neutral-600 mt-1 sm:mt-1.5 lg:mt-2 font-normal leading-snug line-clamp-2 lg:line-clamp-none">
                 Registration, GST, licences, MSME
               </p>
-              <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
+              <div className="hidden lg:inline-flex mt-3.5 items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <span>See more</span>
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-1"
@@ -312,21 +312,21 @@ export default function Home() {
             </div>
 
             {/* 2. SECTION TITLE (Row 1 Center) */}
-            <div className="order-1 lg:order-2 col-span-full sm:col-span-2 lg:col-span-4 flex flex-col items-center justify-center text-center p-6 sm:p-8 min-h-[130px] sm:min-h-[175px]">
-              <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-extrabold text-neutral-900 tracking-tight leading-[1.18]">
+            <div className="order-1 lg:order-2 col-span-2 lg:col-span-4 flex flex-col items-center justify-center text-center p-4 sm:p-6 lg:p-8 min-h-[90px] sm:min-h-[120px] lg:min-h-[175px]">
+              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-extrabold text-neutral-900 tracking-tight leading-[1.18]">
                 What do you<br className="hidden sm:inline" /> need help with?
               </h2>
             </div>
 
             {/* 3. MANAGE COMPLIANCE (Row 1 Right - Pastel Sky Blue) */}
-            <div className="group order-3 lg:order-3 sm:col-span-1 lg:col-span-4 rounded-[6px] bg-[#edf5ff] p-7 sm:p-8 flex flex-col justify-center min-h-[160px] sm:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
-              <h3 className="text-xl sm:text-2xl font-bold text-neutral-900 tracking-tight">
+            <div className="group order-3 lg:order-3 col-span-1 lg:col-span-4 rounded-[6px] bg-[#edf5ff] aspect-square lg:aspect-auto p-3.5 sm:p-5 lg:p-8 flex flex-col justify-center min-h-0 lg:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
+              <h3 className="text-sm sm:text-base lg:text-2xl font-bold text-neutral-900 tracking-tight leading-snug">
                 Manage Compliance
               </h3>
-              <p className="text-sm sm:text-base text-neutral-600 mt-2 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-xs lg:text-base text-neutral-600 mt-1 sm:mt-1.5 lg:mt-2 font-normal leading-snug line-clamp-2 lg:line-clamp-none">
                 GST, tax, labour, ROC
               </p>
-              <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
+              <div className="hidden lg:inline-flex mt-3.5 items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <span>See more</span>
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-1"
@@ -344,14 +344,14 @@ export default function Home() {
             </div>
 
             {/* 4. GET FUNDING (Row 2 Col 1 - Pastel Warm Amber/Cream) */}
-            <div className="group order-4 sm:col-span-1 lg:col-span-3 rounded-[6px] bg-[#fef8ea] p-6 sm:p-7 flex flex-col justify-center min-h-[160px] sm:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
-              <h3 className="text-xl font-bold text-neutral-900 tracking-tight">
+            <div className="group order-4 col-span-1 lg:col-span-3 rounded-[6px] bg-[#fef8ea] aspect-square lg:aspect-auto p-3.5 sm:p-5 lg:p-7 flex flex-col justify-center min-h-0 lg:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
+              <h3 className="text-sm sm:text-base lg:text-xl font-bold text-neutral-900 tracking-tight leading-snug">
                 Get Funding
               </h3>
-              <p className="text-sm text-neutral-600 mt-2 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-xs lg:text-sm text-neutral-600 mt-1 sm:mt-1.5 lg:mt-2 font-normal leading-snug line-clamp-2 lg:line-clamp-none">
                 Loans, subsidies, project reports
               </p>
-              <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
+              <div className="hidden lg:inline-flex mt-3.5 items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <span>See more</span>
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-1"
@@ -369,14 +369,14 @@ export default function Home() {
             </div>
 
             {/* 5. HIRE & MANAGE PEOPLE (Row 2 Col 2 - Pastel Lavender) */}
-            <div className="group order-5 sm:col-span-1 lg:col-span-3 rounded-[6px] bg-[#f4f0fd] p-6 sm:p-7 flex flex-col justify-center min-h-[160px] sm:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
-              <h3 className="text-xl font-bold text-neutral-900 tracking-tight">
+            <div className="group order-5 col-span-1 lg:col-span-3 rounded-[6px] bg-[#f4f0fd] aspect-square lg:aspect-auto p-3.5 sm:p-5 lg:p-7 flex flex-col justify-center min-h-0 lg:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
+              <h3 className="text-sm sm:text-base lg:text-xl font-bold text-neutral-900 tracking-tight leading-snug">
                 Hire & Manage People
               </h3>
-              <p className="text-sm text-neutral-600 mt-2 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-xs lg:text-sm text-neutral-600 mt-1 sm:mt-1.5 lg:mt-2 font-normal leading-snug line-clamp-2 lg:line-clamp-none">
                 Payroll, HR, labour compliance
               </p>
-              <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
+              <div className="hidden lg:inline-flex mt-3.5 items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <span>See more</span>
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-1"
@@ -394,14 +394,14 @@ export default function Home() {
             </div>
 
             {/* 6. BUILD YOUR DIGITAL PRESENCE (Row 2 Col 3 - Pastel Aqua/Teal) */}
-            <div className="group order-6 sm:col-span-1 lg:col-span-3 rounded-[6px] bg-[#eaf8f8] p-6 sm:p-7 flex flex-col justify-center min-h-[160px] sm:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
-              <h3 className="text-xl font-bold text-neutral-900 tracking-tight">
+            <div className="group order-6 col-span-1 lg:col-span-3 rounded-[6px] bg-[#eaf8f8] aspect-square lg:aspect-auto p-3.5 sm:p-5 lg:p-7 flex flex-col justify-center min-h-0 lg:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
+              <h3 className="text-sm sm:text-base lg:text-xl font-bold text-neutral-900 tracking-tight leading-snug">
                 Build Your Digital Presence
               </h3>
-              <p className="text-sm text-neutral-600 mt-2 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-xs lg:text-sm text-neutral-600 mt-1 sm:mt-1.5 lg:mt-2 font-normal leading-snug line-clamp-2 lg:line-clamp-none">
                 Website, branding, software
               </p>
-              <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
+              <div className="hidden lg:inline-flex mt-3.5 items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <span>See more</span>
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-1"
@@ -419,14 +419,14 @@ export default function Home() {
             </div>
 
             {/* 7. GROW YOUR BUSINESS (Row 2 Col 4 - Pastel Peach/Blush) */}
-            <div className="group order-7 sm:col-span-1 lg:col-span-3 rounded-[6px] bg-[#fff0eb] p-6 sm:p-7 flex flex-col justify-center min-h-[160px] sm:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
-              <h3 className="text-xl font-bold text-neutral-900 tracking-tight">
+            <div className="group order-7 col-span-1 lg:col-span-3 rounded-[6px] bg-[#fff0eb] aspect-square lg:aspect-auto p-3.5 sm:p-5 lg:p-7 flex flex-col justify-center min-h-0 lg:min-h-[175px] transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer">
+              <h3 className="text-sm sm:text-base lg:text-xl font-bold text-neutral-900 tracking-tight leading-snug">
                 Grow Your Business
               </h3>
-              <p className="text-sm text-neutral-600 mt-2 font-normal leading-relaxed">
+              <p className="text-[11px] sm:text-xs lg:text-sm text-neutral-600 mt-1 sm:mt-1.5 lg:mt-2 font-normal leading-snug line-clamp-2 lg:line-clamp-none">
                 Marketing, SEO, automation
               </p>
-              <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
+              <div className="hidden lg:inline-flex mt-3.5 items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-900 opacity-0 group-hover:opacity-100 transition-all duration-200">
                 <span>See more</span>
                 <svg
                   className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-1"
