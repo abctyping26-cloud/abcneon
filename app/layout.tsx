@@ -10,9 +10,21 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Everything Your Business Needs. Under One Roof. | Business Solutions",
+  title: "ABC | Everything Your Business Needs. Under One Roof.",
   description:
     "From registration and compliance to finance, documentation, technology and growth — get the services you need to start and run your business.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", sizes: "500x500", type: "image/png" },
+      { url: "/logo.jpg", sizes: "500x500", type: "image/jpeg" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/logo.jpg" },
+    ],
+  },
 };
 
 export default function RootLayout({

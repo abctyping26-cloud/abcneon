@@ -112,8 +112,20 @@ export default function Header({ onSelectService }: HeaderProps) {
     <>
       <header className="sticky top-0 z-40 w-full h-[72px] sm:h-[80px] bg-white/95 backdrop-blur-md border-b border-neutral-100 transition-all flex items-center">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* ================= LEFT SIDE: OFFICIAL LOGO ================= */}
-          <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+          {/* ================= LEFT SIDE: HAMBURGER (MOBILE) + OFFICIAL LOGO ================= */}
+          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+            {/* Mobile Left Hamburger Menu Toggle */}
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden p-2 -ml-1 text-neutral-700 hover:text-neutral-900 rounded-[6px] hover:bg-neutral-100 transition-colors cursor-pointer"
+              aria-label="Open Navigation Menu"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
             <Link
               href="/"
               className="flex items-center gap-2.5 sm:gap-3 group focus:outline-hidden"
@@ -255,8 +267,8 @@ export default function Header({ onSelectService }: HeaderProps) {
 
           {/* ================= RIGHT SIDE: NAV ACTIONS ================= */}
           <div className="flex items-center gap-2 sm:gap-3.5">
-            {/* 1. SERVICES 2-PANEL DROPDOWN */}
-            <div ref={menuRef} className="relative">
+            {/* 1. SERVICES 2-PANEL DROPDOWN (Desktop only) */}
+            <div ref={menuRef} className="relative hidden md:block">
               <button
                 type="button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -400,10 +412,10 @@ export default function Header({ onSelectService }: HeaderProps) {
               )}
             </div>
 
-            {/* 2. CONTACT US NUMBER (from abctyping: +971 2 642 7667) */}
+            {/* 2. CONTACT US NUMBER (Desktop view) */}
             <a
               href="tel:+97126427667"
-              className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-neutral-700 hover:text-[#2563eb] rounded-[6px] hover:bg-neutral-50 transition-colors"
+              className="hidden md:inline-flex items-center gap-2 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-neutral-700 hover:text-[#2563eb] rounded-[6px] hover:bg-neutral-50 transition-colors"
               title="Call our Abu Dhabi office directly"
             >
               <div className="w-7 h-7 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center flex-shrink-0">
@@ -428,11 +440,11 @@ export default function Header({ onSelectService }: HeaderProps) {
               </span>
             </a>
 
-            {/* 3. LOGIN OR SIGNUP BUTTON */}
+            {/* 3. LOGIN OR SIGNUP BUTTON (Desktop only) */}
             <button
               type="button"
               onClick={() => setIsAuthOpen(true)}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-[6px] bg-neutral-900 hover:bg-neutral-800 text-white transition-all duration-200 shadow-xs active:scale-[0.98] cursor-pointer"
+              className="hidden md:inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-[6px] bg-neutral-900 hover:bg-neutral-800 text-white transition-all duration-200 shadow-xs active:scale-[0.98] cursor-pointer"
             >
               <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                 <path
@@ -444,40 +456,54 @@ export default function Header({ onSelectService }: HeaderProps) {
               <span>Login / Sign Up</span>
             </button>
 
-            {/* Mobile Hamburger Menu Toggle */}
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden p-2 text-neutral-600 hover:text-neutral-900 rounded-[6px] hover:bg-neutral-100 cursor-pointer"
-              aria-label="Open Mobile Menu"
+            {/* 4. CALL BUTTON (Mobile only, right side of header) */}
+            <a
+              href="tel:+97126427667"
+              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-blue-50 text-[#2563eb] border border-blue-100 hover:bg-blue-100 transition-colors shadow-2xs"
+              aria-label="Call ABC"
+              title="Call our Abu Dhabi office"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
+                />
               </svg>
-            </button>
+            </a>
           </div>
         </div>
       </header>
 
-      {/* ================= MOBILE NAVIGATION DRAWER ================= */}
+      {/* ================= MOBILE NAVIGATION DRAWER (LEFT SIDEBAR) ================= */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden bg-neutral-900/40 backdrop-blur-xs flex justify-end animate-in fade-in duration-150">
-          <div className="w-full max-w-sm bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto p-5 animate-in slide-in-from-right duration-200">
-            <div>
+        <div className="fixed inset-0 z-50 md:hidden bg-neutral-900/50 backdrop-blur-xs flex justify-start animate-in fade-in duration-150">
+          <div className="w-full max-w-[320px] xs:max-w-[340px] bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto animate-in slide-in-from-left duration-200">
+            <div className="p-4 sm:p-5">
               {/* Drawer Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-                <div className="flex items-center gap-2">
-                  <div className="relative w-8 h-8 rounded-[6px] overflow-hidden bg-white border border-neutral-200 p-0.5">
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-100">
+                <Link
+                  href="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-2.5"
+                >
+                  <div className="relative w-8 h-8 rounded-[6px] overflow-hidden bg-white border border-neutral-200 p-0.5 shadow-2xs">
                     <Image src="/logo.jpg" alt="Logo" width={32} height={32} className="object-contain" />
                   </div>
-                  <span className="font-black text-xl text-neutral-900">
-                    abc<span className="text-[#2563eb]">.</span>
-                  </span>
-                </div>
+                  <div className="flex flex-col">
+                    <span className="font-black text-xl text-neutral-900 leading-none">
+                      abc<span className="text-[#2563eb]">.</span>
+                    </span>
+                    <span className="text-[9px] uppercase font-bold tracking-wider text-neutral-400 leading-none mt-0.5">
+                      Corporate Services
+                    </span>
+                  </div>
+                </Link>
                 <button
                   type="button"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-1.5 text-neutral-400 hover:text-neutral-700 rounded-[6px] hover:bg-neutral-100 cursor-pointer"
+                  className="p-1.5 text-neutral-400 hover:text-neutral-700 rounded-[6px] hover:bg-neutral-100 cursor-pointer transition-colors"
+                  aria-label="Close menu"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -486,9 +512,9 @@ export default function Header({ onSelectService }: HeaderProps) {
               </div>
 
               {/* Mobile Search Bar */}
-              <div className="mt-4">
+              <div className="mt-3.5">
                 <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-neutral-400">
+                  <span className="absolute left-3 top-2.5 text-neutral-400 pointer-events-none">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
@@ -503,48 +529,59 @@ export default function Header({ onSelectService }: HeaderProps) {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search services..."
-                    className="w-full pl-9 pr-4 py-2 text-sm bg-neutral-50 rounded-[6px] border border-neutral-200 text-neutral-900 placeholder-neutral-400"
+                    className="w-full pl-9 pr-4 py-2 text-xs bg-neutral-50 rounded-[6px] border border-neutral-200 text-neutral-900 placeholder-neutral-400 focus:bg-white focus:outline-hidden"
                   />
                 </div>
                 {searchQuery.trim() && (
-                  <div className="mt-2 bg-neutral-50 p-2 rounded-[6px] max-h-48 overflow-y-auto space-y-1">
+                  <div className="mt-2 bg-neutral-50 p-2 rounded-[6px] max-h-48 overflow-y-auto space-y-1 border border-neutral-100">
                     {searchResults.slice(0, 5).map((r, i) => (
                       <button
                         key={i}
                         type="button"
-                        onClick={() => handleServiceClick(r.categoryIndex, r.subIndex)}
-                        className="w-full text-left p-2 rounded bg-white text-xs font-medium text-neutral-800 flex justify-between"
+                        onClick={() => {
+                          handleServiceClick(r.categoryIndex, r.subIndex);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="w-full text-left p-2 rounded bg-white text-xs font-medium text-neutral-800 hover:text-[#2563eb] flex justify-between cursor-pointer"
                       >
-                        <span>{r.name}</span>
-                        <span className="text-[10px] text-neutral-400">{r.categoryNumber}</span>
+                        <span className="truncate">{r.name}</span>
+                        <span className="text-[10px] text-neutral-400 ml-2">{r.categoryNumber}</span>
                       </button>
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Mobile Categories Accordion */}
-              <div className="mt-5 space-y-1.5">
+              {/* Services List with Clean Submenu Box */}
+              <div className="mt-4 space-y-1">
                 <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-1 mb-2">
-                  All Services & Categories
+                  Services
                 </div>
                 {catalogCategories.map((cat, cIdx) => {
                   const isExpanded = expandedMobileCatIndex === cIdx;
                   return (
-                    <div key={cat.id} className="rounded-[6px] overflow-hidden border border-neutral-100">
+                    <div key={cat.id} className="rounded-[6px] overflow-hidden">
                       <button
                         type="button"
                         onClick={() =>
                           setExpandedMobileCatIndex(isExpanded ? null : cIdx)
                         }
-                        className="w-full px-3 py-2.5 bg-neutral-50 flex items-center justify-between text-xs font-semibold text-neutral-800"
+                        className={`w-full px-3 py-2.5 rounded-[6px] flex items-center justify-between text-xs font-semibold transition-colors cursor-pointer ${
+                          isExpanded
+                            ? "bg-neutral-100 text-neutral-900"
+                            : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
+                        }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono text-[10px] text-neutral-500 font-bold">{cat.number}</span>
-                          <span>{cat.title}</span>
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded bg-neutral-200/70 text-neutral-600 flex-shrink-0">
+                            {cat.number}
+                          </span>
+                          <span className="truncate">{cat.title}</span>
                         </div>
                         <svg
-                          className={`w-3.5 h-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                          className={`w-3.5 h-3.5 transition-transform duration-200 flex-shrink-0 ${
+                            isExpanded ? "rotate-180 text-[#2563eb]" : "text-neutral-400"
+                          }`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -552,17 +589,24 @@ export default function Header({ onSelectService }: HeaderProps) {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                       </button>
+
+                      {/* Clean Submenu Box: Just list, nothing else like laptop view */}
                       {isExpanded && (
-                        <div className="p-2 space-y-1 bg-white border-t border-neutral-100">
+                        <div className="my-1 mx-1.5 p-2 rounded-[6px] bg-neutral-50 border border-neutral-200/80 space-y-0.5 animate-in fade-in duration-100">
                           {cat.items.map((sub, sIdx) => (
                             <button
                               key={sub.name}
                               type="button"
-                              onClick={() => handleServiceClick(cIdx, sIdx)}
-                              className="w-full text-left px-2 py-1.5 text-xs text-neutral-700 hover:text-[#2563eb] rounded hover:bg-neutral-50 flex justify-between"
+                              onClick={() => {
+                                handleServiceClick(cIdx, sIdx);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="w-full text-left px-2.5 py-2 text-xs font-medium text-neutral-700 hover:text-[#2563eb] rounded hover:bg-white flex items-center justify-between transition-colors cursor-pointer group"
                             >
-                              <span>{sub.name}</span>
-                              <span className="text-neutral-400">&rarr;</span>
+                              <span className="truncate">{sub.name}</span>
+                              <span className="text-neutral-300 group-hover:text-[#2563eb] group-hover:translate-x-0.5 transition-all text-xs ml-1 flex-shrink-0">
+                                &rarr;
+                              </span>
                             </button>
                           ))}
                         </div>
@@ -571,13 +615,44 @@ export default function Header({ onSelectService }: HeaderProps) {
                   );
                 })}
               </div>
+
+              {/* Login & Sign Up Under Services in Left Sidebar */}
+              <div className="mt-5 pt-4 border-t border-neutral-100">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-1 mb-2.5">
+                  Account
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      setAuthMode("signin");
+                      setIsAuthOpen(true);
+                    }}
+                    className="w-full py-2 px-3 rounded-[6px] border border-neutral-300 hover:border-neutral-400 bg-white hover:bg-neutral-50 text-neutral-800 text-xs font-bold text-center transition-colors cursor-pointer shadow-2xs"
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      setAuthMode("signup");
+                      setIsAuthOpen(true);
+                    }}
+                    className="w-full py-2 px-3 rounded-[6px] bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold text-center transition-colors cursor-pointer shadow-2xs"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Mobile Footer CTAs */}
-            <div className="pt-4 border-t border-neutral-100 space-y-2.5">
+            <div className="p-4 sm:p-5 border-t border-neutral-100 mt-auto">
               <a
                 href="tel:+97126427667"
-                className="w-full py-2.5 px-4 rounded-[6px] bg-blue-50 text-[#2563eb] text-xs font-bold flex items-center justify-center gap-2"
+                className="w-full py-2.5 px-4 rounded-[6px] bg-blue-50 hover:bg-blue-100 text-[#2563eb] text-xs font-bold flex items-center justify-center gap-2 transition-colors"
               >
                 <svg className="w-4 h-4 stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -588,16 +663,6 @@ export default function Header({ onSelectService }: HeaderProps) {
                 </svg>
                 <span>Call Us: +971 2 642 7667</span>
               </a>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsAuthOpen(true);
-                }}
-                className="w-full py-2.5 px-4 rounded-[6px] bg-neutral-900 text-white text-xs font-bold text-center"
-              >
-                Login / Sign Up
-              </button>
             </div>
           </div>
         </div>
