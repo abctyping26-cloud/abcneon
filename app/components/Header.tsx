@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { catalogCategories, CatalogCategory } from "../data/catalogData";
+import ContactModal from "./ContactModal";
 
 interface HeaderProps {
   onSelectService?: (categoryIndex: number, subIndex: number) => void;
@@ -26,6 +27,18 @@ export default function Header({ onSelectService }: HeaderProps) {
   const [authEmail, setAuthEmail] = useState("");
   const [authPassword, setAuthPassword] = useState("");
   const [authFullName, setAuthFullName] = useState("");
+
+  // Contact Modal State
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // Listen for global contact modal events
+  useEffect(() => {
+    const handleOpenContact = () => setIsContactModalOpen(true);
+    window.addEventListener("abc:open-contact-modal", handleOpenContact);
+    return () => {
+      window.removeEventListener("abc:open-contact-modal", handleOpenContact);
+    };
+  }, []);
 
   // Mobile Drawer State
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -413,9 +426,10 @@ export default function Header({ onSelectService }: HeaderProps) {
             </div>
 
             {/* 2. CONTACT US NUMBER (Desktop view) */}
-            <a
-              href="tel:+97126427667"
-              className="hidden md:inline-flex items-center gap-2 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-neutral-700 hover:text-[#2563eb] rounded-[6px] hover:bg-neutral-50 transition-colors"
+            <button
+              type="button"
+              onClick={() => setIsContactModalOpen(true)}
+              className="hidden md:inline-flex items-center gap-2 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-neutral-700 hover:text-[#2563eb] rounded-[6px] hover:bg-neutral-50 transition-colors cursor-pointer"
               title="Call our Abu Dhabi office directly"
             >
               <div className="w-7 h-7 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center flex-shrink-0">
@@ -438,7 +452,7 @@ export default function Header({ onSelectService }: HeaderProps) {
               <span className="text-xs font-bold text-neutral-800 lg:hidden hidden sm:inline whitespace-nowrap">
                 +971 2 642 7667
               </span>
-            </a>
+            </button>
 
             {/* 3. LOGIN OR SIGNUP BUTTON (Desktop only) */}
             <button
@@ -457,9 +471,10 @@ export default function Header({ onSelectService }: HeaderProps) {
             </button>
 
             {/* 4. CALL BUTTON (Mobile only, right side of header) */}
-            <a
-              href="tel:+97126427667"
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-blue-50 text-[#2563eb] border border-blue-100 hover:bg-blue-100 transition-colors shadow-2xs"
+            <button
+              type="button"
+              onClick={() => setIsContactModalOpen(true)}
+              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-blue-50 text-[#2563eb] border border-blue-100 hover:bg-blue-100 transition-colors shadow-2xs cursor-pointer"
               aria-label="Call ABC"
               title="Call our Abu Dhabi office"
             >
@@ -470,7 +485,7 @@ export default function Header({ onSelectService }: HeaderProps) {
                   d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
                 />
               </svg>
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -650,9 +665,13 @@ export default function Header({ onSelectService }: HeaderProps) {
 
             {/* Mobile Footer CTAs */}
             <div className="p-4 sm:p-5 border-t border-neutral-100 mt-auto">
-              <a
-                href="tel:+97126427667"
-                className="w-full py-2.5 px-4 rounded-[6px] bg-blue-50 hover:bg-blue-100 text-[#2563eb] text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsContactModalOpen(true);
+                }}
+                className="w-full py-2.5 px-4 rounded-[6px] bg-blue-50 hover:bg-blue-100 text-[#2563eb] text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <svg className="w-4 h-4 stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -662,7 +681,7 @@ export default function Header({ onSelectService }: HeaderProps) {
                   />
                 </svg>
                 <span>Call Us: +971 2 642 7667</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -805,6 +824,12 @@ export default function Header({ onSelectService }: HeaderProps) {
           </div>
         </div>
       )}
+
+      {/* ================= CONTACT DETAILS MODAL ================= */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </>
   );
 }

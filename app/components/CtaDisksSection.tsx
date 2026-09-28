@@ -159,8 +159,13 @@ export default function CtaDisksSection() {
           </button>
 
           {/* Button 3: Call Us */}
-          <a
-            href="tel:+97126427667"
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.dispatchEvent(new CustomEvent("abc:open-contact-modal"));
+              }
+            }}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 font-bold text-sm sm:text-base shadow-2xs hover:shadow-sm active:scale-98 transition-all cursor-pointer"
           >
             {/* Phone Icon */}
@@ -173,7 +178,7 @@ export default function CtaDisksSection() {
               />
             </svg>
             <span>Call Us</span>
-          </a>
+          </button>
         </div>
       </div>
     </section>
