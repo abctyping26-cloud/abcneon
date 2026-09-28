@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { getWhatsAppUrl, WHATSAPP_MESSAGES } from "../utils/whatsapp";
 
 // ================= DVD DISK COMPONENT =================
 function DvdDisk({ label, trackColor = "#38bdf8" }: { label: string; trackColor?: string }) {
@@ -128,7 +129,7 @@ export default function CtaDisksSection() {
         <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 relative z-20">
           {/* Button 1: Chat Us in WhatsApp */}
           <a
-            href="https://wa.me/97126427667?text=Hello%20ABC%20Neon%2C%20I%20would%20like%20to%20discuss%20services%20for%20my%20business."
+            href={getWhatsAppUrl(WHATSAPP_MESSAGES.cta)}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-xl active:scale-98 transition-all cursor-pointer"

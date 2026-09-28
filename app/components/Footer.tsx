@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { catalogCategories } from "../data/catalogData";
+import { getWhatsAppUrl, WHATSAPP_MESSAGES } from "../utils/whatsapp";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -65,7 +66,7 @@ export default function Footer() {
               Explore 69 Services
             </button>
             <a
-              href="https://wa.me/97126427667?text=Hello%20ABC%20Neon%2C%20I%20would%20like%20to%20enquire%20about%20your%20services."
+              href={getWhatsAppUrl(WHATSAPP_MESSAGES.footer)}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white font-semibold text-xs sm:text-sm transition-all duration-200 cursor-pointer"
