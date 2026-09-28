@@ -128,7 +128,7 @@ export default function CtaDisksSection() {
         <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 relative z-20">
           {/* Button 1: Chat Us in WhatsApp */}
           <a
-            href="https://wa.me/"
+            href="https://wa.me/97126427667?text=Hello%20ABC%20Neon%2C%20I%20would%20like%20to%20discuss%20services%20for%20my%20business."
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-xl active:scale-98 transition-all cursor-pointer"
@@ -159,7 +159,7 @@ export default function CtaDisksSection() {
 
           {/* Button 3: Call Us */}
           <a
-            href="tel:+91"
+            href="tel:+97126427667"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 font-bold text-sm sm:text-base shadow-2xs hover:shadow-sm active:scale-98 transition-all cursor-pointer"
           >
             {/* Phone Icon */}

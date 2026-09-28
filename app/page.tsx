@@ -84,11 +84,13 @@ export default function Home() {
       {/* ================= STICKY HEADER ================= */}
       <Header onSelectService={handleSelectServiceFromHeader} />
 
-      {/* ================= STICKY HERO CONTAINER ================= */}
-      <div className="sticky top-[72px] sm:top-[80px] z-0 min-h-[calc(100vh-72px)] sm:min-h-[calc(100vh-80px)] flex flex-col justify-center bg-white">
-        {/* Main Hero Section */}
-        <main className="relative flex-1 flex items-center justify-center overflow-hidden py-6 sm:py-10 lg:py-12 bg-white">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ================= MAIN CONTENT ================= */}
+      <main id="main-content">
+        {/* ================= STICKY HERO CONTAINER ================= */}
+        <div className="sticky top-[72px] sm:top-[80px] z-0 min-h-[calc(100vh-72px)] sm:min-h-[calc(100vh-80px)] flex flex-col justify-center bg-white">
+          {/* Main Hero Section */}
+          <section id="hero" className="relative flex-1 flex items-center justify-center overflow-hidden py-6 sm:py-10 lg:py-12 bg-white">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* ================= LEFT COLUMN ================= */}
             <div className="lg:col-span-6 xl:col-span-5 space-y-6">
@@ -196,9 +198,9 @@ export default function Home() {
                       <span className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs">
                         🚀
                       </span>
-                      <h3 className="font-bold text-sm sm:text-base leading-tight">
+                      <div className="font-bold text-sm sm:text-base leading-tight">
                         Start a Business
-                      </h3>
+                      </div>
                     </div>
                     <p className="text-[11px] sm:text-xs text-blue-100 leading-snug">
                       Registration, GST, licences & MSME support
@@ -225,9 +227,9 @@ export default function Home() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-bold text-xs sm:text-sm text-neutral-900 leading-tight">
+                      <div className="font-bold text-xs sm:text-sm text-neutral-900 leading-tight">
                         Hire & Manage People
-                      </h3>
+                      </div>
                       <p className="text-[11px] text-neutral-500 mt-1 leading-snug">
                         Payroll, HR, labour compliance
                       </p>
@@ -238,9 +240,9 @@ export default function Home() {
                 {/* 6. FLOATING BOX 5: Bottom-Left Card (Build Your Digital Presence with Skill Pills) */}
                 <div className="absolute -bottom-3 sm:bottom-4 -left-2 sm:-left-12 z-20 animate-float-medium">
                   <div className="bg-white/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-neutral-200/90 shadow-xl shadow-black/8 hover:shadow-2xl transition-all cursor-pointer">
-                    <h3 className="font-bold text-xs sm:text-sm text-neutral-900 mb-2.5">
+                    <div className="font-bold text-xs sm:text-sm text-neutral-900 mb-2.5">
                       Build Your Digital Presence
-                    </h3>
+                    </div>
                     <div className="flex flex-wrap items-center gap-1.5">
                       <span className="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[11px] font-semibold text-[#2563eb]">
                         + Website
@@ -262,9 +264,9 @@ export default function Home() {
                       <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">
                         📈
                       </span>
-                      <h3 className="font-bold text-sm sm:text-base leading-tight">
+                      <div className="font-bold text-sm sm:text-base leading-tight">
                         Grow Your Business
-                      </h3>
+                      </div>
                     </div>
                     <p className="text-[11px] text-blue-100 leading-snug">
                       Marketing, SEO, automation & scale
@@ -275,7 +277,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </main>
+      </section>
     </div>
 
     {/* ================= WHAT DO YOU NEED HELP WITH? SECTION (OVERLAPPING SHEET) ================= */}
@@ -828,6 +830,7 @@ export default function Home() {
 
       {/* ================= SECTION 8: 3-DISK DVD CTA SECTION ================= */}
       <CtaDisksSection />
+      </main>
 
       {/* ================= SECTION 9: 100VH ALL-BLUE MASTER FOOTER ================= */}
       <Footer />

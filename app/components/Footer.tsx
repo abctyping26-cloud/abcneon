@@ -65,7 +65,7 @@ export default function Footer() {
               Explore 69 Services
             </button>
             <a
-              href="https://wa.me/"
+              href="https://wa.me/97126427667?text=Hello%20ABC%20Neon%2C%20I%20would%20like%20to%20enquire%20about%20your%20services."
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white font-semibold text-xs sm:text-sm transition-all duration-200 cursor-pointer"
@@ -137,18 +137,18 @@ export default function Footer() {
             >
               Services Directory
             </button>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#site-footer" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#site-footer" className="hover:text-white transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <span className="text-white/60">
               ISO 27001 Certified
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
+            </span>
+            <span className="text-white/60">
               Security & Compliance
-            </a>
+            </span>
           </div>
         </div>
       </div>
