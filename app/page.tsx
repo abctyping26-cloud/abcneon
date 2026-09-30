@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Lenis from "lenis";
-import { catalogCategories } from "./data/catalogData";
+import { catalogCategories, getServiceSlug } from "./data/catalogData";
 import Header from "./components/Header";
 import IdeaToLaunchSection from "./components/IdeaToLaunchSection";
 import WhatBusinessesNeedSection from "./components/WhatBusinessesNeedSection";
+import BusinessSpaceSection from "./components/BusinessSpaceSection";
 import WhyUsSection from "./components/WhyUsSection";
 import RequirementToResolutionSection from "./components/RequirementToResolutionSection";
 import CtaDisksSection from "./components/CtaDisksSection";
@@ -119,6 +121,10 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <button
                   type="button"
+                  onClick={() => {
+                    const dir = document.getElementById("directory");
+                    dir?.scrollIntoView({ behavior: "smooth" });
+                  }}
                   className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 text-base font-semibold rounded-[6px] transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.99] cursor-pointer inline-flex items-center gap-2"
                 >
                   Explore Services
@@ -137,6 +143,11 @@ export default function Home() {
                 </button>
                 <button
                   type="button"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(new CustomEvent("abc:open-contact-modal"));
+                    }
+                  }}
                   className="bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 px-7 py-3.5 text-base font-semibold rounded-[6px] transition-all duration-200 shadow-xs active:scale-[0.99] cursor-pointer"
                 >
                   Talk to an Expert
@@ -796,10 +807,23 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Action Button: Category CTA */}
-              <div className="pt-6 mt-6 flex items-center justify-end">
+              {/* Action Buttons: View Details & Category CTA */}
+              <div className="pt-6 mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-neutral-100">
+                <Link
+                  href={`/services/${getServiceSlug(activeCategory, activeSubItem)}`}
+                  className="w-full sm:w-auto text-xs font-bold text-[#2563eb] hover:text-[#1d4ed8] inline-flex items-center gap-1.5 group cursor-pointer"
+                >
+                  <span>View Full Details &amp; Scope</span>
+                  <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                </Link>
+
                 <button
                   type="button"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(new CustomEvent("abc:open-contact-modal"));
+                    }
+                  }}
                   className="w-full sm:w-auto px-7 py-3 rounded-[6px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2 border-0"
                 >
                   <span>{activeCategory.ctaText}</span>
@@ -821,6 +845,9 @@ export default function Home() {
 
       {/* ================= SECTION 5: WHAT BUSINESSES NEED MOST (SHOWCASE & HIGH DEMAND MARQUEE) ================= */}
       <WhatBusinessesNeedSection />
+
+      {/* ================= SECTION 5.5: FIND THE RIGHT SPACE FOR YOUR BUSINESS ================= */}
+      <BusinessSpaceSection />
 
       {/* ================= SECTION 6: WHY US (TABLET FRAME WITH FLOWING GLOWING LINES) ================= */}
       <WhyUsSection />

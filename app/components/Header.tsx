@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { catalogCategories, CatalogCategory } from "../data/catalogData";
+import { useRouter } from "next/navigation";
+import { catalogCategories, CatalogCategory, getServiceSlug } from "../data/catalogData";
 import ContactModal from "./ContactModal";
 
 interface HeaderProps {
@@ -11,6 +12,8 @@ interface HeaderProps {
 }
 
 export default function Header({ onSelectService }: HeaderProps) {
+  const router = useRouter();
+
   // Services Dropdown State
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenuCatIndex, setActiveMenuCatIndex] = useState(0);
@@ -113,8 +116,19 @@ export default function Header({ onSelectService }: HeaderProps) {
     if (onSelectService) {
       onSelectService(catIndex, subIndex);
     } else {
-      const el = document.getElementById("directory");
-      el?.scrollIntoView({ behavior: "smooth" });
+      const category = catalogCategories[catIndex];
+      const item = category?.items[subIndex];
+      if (category && item) {
+        const slug = getServiceSlug(category, item);
+        router.push(`/services/${slug}`);
+      } else {
+        const el = document.getElementById("directory");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        } else {
+          router.push("/#directory");
+        }
+      }
     }
   };
 

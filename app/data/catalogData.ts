@@ -6,6 +6,12 @@ export interface SubItemDetail {
   prerequisites: string;
 }
 
+export interface CatalogItem {
+  name: string;
+  slug?: string;
+  detail: SubItemDetail;
+}
+
 export interface CatalogCategory {
   id: string;
   number: string;
@@ -15,10 +21,7 @@ export interface CatalogCategory {
   bgColor: string;
   accentColor: string;
   ctaText: string;
-  items: {
-    name: string;
-    detail: SubItemDetail;
-  }[];
+  items: CatalogItem[];
 }
 
 export const catalogCategories: CatalogCategory[] = [
@@ -1063,3 +1066,68 @@ export const catalogCategories: CatalogCategory[] = [
     ]
   }
 ];
+
+// ================= SLUG & SERVICE QUERY UTILITIES =================
+
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+export function getServiceSlug(category: CatalogCategory, item: CatalogItem): string {
+  if (item.slug) return item.slug;
+  if (item.name.toLowerCase() === "payroll") {
+    return category.id === "tax-compliance" ? "payroll-tax-compliance" : "payroll-hr-management";
+  }
+  return slugify(item.name);
+}
+
+export interface ServiceEntry {
+  slug: string;
+  name: string;
+  category: CatalogCategory;
+  categoryIndex: number;
+  subIndex: number;
+  detail: SubItemDetail;
+}
+
+export function getAllServices(): ServiceEntry[] {
+  const result: ServiceEntry[] = [];
+  catalogCategories.forEach((category, cIdx) => {
+    category.items.forEach((item, sIdx) => {
+      result.push({
+        slug: getServiceSlug(category, item),
+        name: item.name,
+        category,
+        categoryIndex: cIdx,
+        subIndex: sIdx,
+        detail: item.detail,
+      });
+    });
+  });
+  return result;
+}
+
+export function getServiceBySlug(slug: string): ServiceEntry | undefined {
+  const all = getAllServices();
+  return all.find((s) => s.slug === slug);
+}
+
+export function getRelatedServices(slug: string, limit = 4): ServiceEntry[] {
+  const current = getServiceBySlug(slug);
+  if (!current) return [];
+  const all = getAllServices();
+  const sameCategory = all.filter(
+    (s) => s.category.id === current.category.id && s.slug !== slug
+  );
+  if (sameCategory.length >= limit) {
+    return sameCategory.slice(0, limit);
+  }
+  const others = all.filter(
+    (s) => s.category.id !== current.category.id && s.slug !== slug
+  );
+  return [...sameCategory, ...others].slice(0, limit);
+}
+

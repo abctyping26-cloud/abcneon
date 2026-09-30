@@ -2,7 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { catalogCategories } from "../data/catalogData";
+import Link from "next/link";
+import { catalogCategories, getServiceSlug } from "../data/catalogData";
 import { getWhatsAppUrl, WHATSAPP_MESSAGES } from "../utils/whatsapp";
 
 export default function Footer() {
@@ -99,18 +100,20 @@ export default function Footer() {
                   </span>
                 </h4>
                 <ul className="space-y-1.5">
-                  {category.items.map((item) => (
-                    <li key={item.name}>
-                      <button
-                        type="button"
-                        onClick={scrollToDirectory}
-                        className="text-left text-[11px] text-blue-100/75 hover:text-white hover:underline transition-colors duration-150 leading-snug line-clamp-1 cursor-pointer block w-full"
-                        title={item.name}
-                      >
-                        {item.name}
-                      </button>
-                    </li>
-                  ))}
+                  {category.items.map((item) => {
+                    const slug = getServiceSlug(category, item);
+                    return (
+                      <li key={item.name}>
+                        <Link
+                          href={`/services/${slug}`}
+                          className="text-left text-[11px] text-blue-100/75 hover:text-white hover:underline transition-colors duration-150 leading-snug line-clamp-1 block w-full"
+                          title={item.name}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
