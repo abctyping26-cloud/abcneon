@@ -138,19 +138,19 @@ export default function EnquirySection() {
   const whatsappUrl = getWhatsAppUrl(WHATSAPP_MESSAGES.enquiry);
 
   return (
-    <section className="relative z-10 w-full bg-white py-16 sm:py-20 lg:py-24 border-t border-neutral-200/80" id="enquiry">
+    <section className="relative z-10 w-full bg-white pt-6 sm:pt-8 pb-14 sm:pb-18 border-t border-neutral-200/80" id="enquiry">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
           {/* ================= LEFT COLUMN: TITLE & ENQUIRY FORM ================= */}
           <div className="lg:col-span-7 max-w-xl">
-            <div className="mb-6 sm:mb-8">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#2563eb] block mb-2">
+            <div className="mb-4 sm:mb-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#2563eb] block mb-1">
                 Fast-Track Consultation
               </span>
-              <h2 className="text-4xl sm:text-5xl font-black text-neutral-950 tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-950 tracking-tight leading-tight">
                 Enquiry
               </h2>
-              <p className="mt-2 text-sm sm:text-base text-neutral-500 font-normal leading-relaxed">
+              <p className="mt-1.5 text-sm sm:text-base text-neutral-500 font-normal leading-relaxed">
                 Tell us about your business requirement. Our specialists will review your scope and get in touch with an actionable roadmap.
               </p>
             </div>
@@ -196,7 +196,7 @@ export default function EnquirySection() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4" id="enquiry-form">
                 {error && (
                   <div className="p-3 rounded-[6px] bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
                     {error}

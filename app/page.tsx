@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Lenis from "lenis";
@@ -45,20 +45,32 @@ export default function Home() {
     setMobileOpenCatIndex((prev) => (prev === index ? null : index));
   };
 
+  const lenisRef = useRef<Lenis | null>(null);
+
+  const scrollToTarget = (target: string | HTMLElement, offset = -80) => {
+    if (lenisRef.current) {
+      lenisRef.current.resize();
+      lenisRef.current.scrollTo(target, { offset, duration: 1.2 });
+    } else {
+      const el = typeof target === "string" ? document.querySelector(target) : target;
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY + offset;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }
+  };
+
   const handleSelectServiceFromHeader = (catIndex: number, subIndex: number = 0) => {
     setSelectedCatIndex(catIndex);
     setSelectedSubIndex(subIndex);
     setMobileOpenCatIndex(catIndex);
     setIsPaused(true);
-    const directorySection = document.getElementById("directory");
-    if (directorySection) {
-      directorySection.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToTarget("#directory", -80);
   };
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -66,6 +78,8 @@ export default function Home() {
       wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
     });
+    lenisRef.current = lenis;
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
     let animationFrameId: number;
 
@@ -76,9 +90,27 @@ export default function Home() {
 
     animationFrameId = requestAnimationFrame(raf);
 
+    // Observe document changes so Lenis dimensions.limit stays accurate after hydration
+    const resizeObserver = new ResizeObserver(() => {
+      lenis.resize();
+    });
+    if (document.body) {
+      resizeObserver.observe(document.body);
+    }
+    resizeObserver.observe(document.documentElement);
+
+    // Initial resizes to capture post-mount layouts and image sizes
+    const t1 = setTimeout(() => lenis.resize(), 150);
+    const t2 = setTimeout(() => lenis.resize(), 600);
+
     return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
       lenis.destroy();
+      lenisRef.current = null;
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 
@@ -118,19 +150,55 @@ export default function Home() {
                 your business.
               </p>
 
-              {/* CTA Buttons - smoothed sharp rectangle edges */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
+              {/* CTA Buttons Cluster */}
+              <div className="pt-2 flex flex-col items-start gap-2.5 w-full max-w-[430px]">
+                {/* Primary CTA Row: Explore Services & Talk to an Expert */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      scrollToTarget("#directory", -80);
+                    }}
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-3.5 text-sm sm:text-base font-semibold rounded-[6px] transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.99] cursor-pointer inline-flex items-center justify-center gap-2 text-center"
+                  >
+                    <span>Explore Services</span>
+                    <svg
+                      className="w-4 h-4 stroke-[2.5]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(new CustomEvent("abc:open-contact-modal"));
+                      }
+                    }}
+                    className="bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 px-5 py-3.5 text-sm sm:text-base font-semibold rounded-[6px] transition-all duration-200 shadow-xs active:scale-[0.99] cursor-pointer inline-flex items-center justify-center text-center"
+                  >
+                    Talk to an Expert
+                  </button>
+                </div>
+
+                {/* Slim Full-Width Enquiry Button (covers width of both buttons above) */}
                 <button
                   type="button"
                   onClick={() => {
-                    const dir = document.getElementById("directory");
-                    dir?.scrollIntoView({ behavior: "smooth" });
+                    scrollToTarget("#enquiry", -80);
                   }}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 text-base font-semibold rounded-[6px] transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.99] cursor-pointer inline-flex items-center gap-2"
+                  className="w-full bg-blue-50/80 hover:bg-blue-100 text-[#2563eb] hover:text-[#1d4ed8] border border-blue-200/90 hover:border-blue-300 py-2.5 px-4 text-xs sm:text-sm font-semibold rounded-[6px] transition-all duration-200 shadow-2xs active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Explore Services
+                  <span>Send us an enquiry</span>
                   <svg
-                    className="w-4 h-4 stroke-[2.5]"
+                    className="w-3.5 h-3.5 stroke-[2.5]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -138,20 +206,9 @@ export default function Home() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (typeof window !== "undefined") {
-                      window.dispatchEvent(new CustomEvent("abc:open-contact-modal"));
-                    }
-                  }}
-                  className="bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 px-7 py-3.5 text-base font-semibold rounded-[6px] transition-all duration-200 shadow-xs active:scale-[0.99] cursor-pointer"
-                >
-                  Talk to an Expert
                 </button>
               </div>
             </div>

@@ -8,13 +8,21 @@ import { getWhatsAppUrl, WHATSAPP_MESSAGES } from "../utils/whatsapp";
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined" && (window as unknown as { __lenis?: { scrollTo: (target: number | string, options?: object) => void } }).__lenis) {
+      (window as unknown as { __lenis: { scrollTo: (target: number | string, options?: object) => void } }).__lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const scrollToDirectory = () => {
-    const directorySection = document.getElementById("directory");
-    if (directorySection) {
-      directorySection.scrollIntoView({ behavior: "smooth" });
+    if (typeof window !== "undefined" && (window as unknown as { __lenis?: { scrollTo: (target: number | string, options?: object) => void } }).__lenis) {
+      (window as unknown as { __lenis: { scrollTo: (target: number | string, options?: object) => void } }).__lenis.scrollTo("#directory", { offset: -75, duration: 1.2 });
+    } else {
+      const directorySection = document.getElementById("directory");
+      if (directorySection) {
+        directorySection.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
