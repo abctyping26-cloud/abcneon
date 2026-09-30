@@ -114,12 +114,13 @@ const jsonLd = {
       name: "ABC Neon",
       url: siteUrl,
       logo: `${siteUrl}/logo.jpg`,
+      email: "abctyping26@gmail.com",
       contactPoint: [
         {
           "@type": "ContactPoint",
           telephone: "+971 2 642 7667",
           contactType: "customer service",
-          availableLanguage: ["English", "Hindi", "Arabic"],
+          availableLanguage: ["English", "Hindi", "Malayalam", "Arabic"],
         },
       ],
     },

@@ -2,17 +2,24 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { getWhatsAppUrl, DEFAULT_WHATSAPP_PHONE } from "../utils/whatsapp";
+import {
+  getWhatsAppUrl,
+  DEFAULT_WHATSAPP_PHONE,
+  DEFAULT_CONTACT_PHONE,
+  DEFAULT_CONTACT_EMAIL,
+} from "../utils/whatsapp";
 
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const PHONE_NUMBER = process.env.NEXT_PUBLIC_CONTACT_PHONE || "+971 2 642 7667";
+const PHONE_NUMBER =
+  process.env.NEXT_PUBLIC_CONTACT_PHONE || DEFAULT_CONTACT_PHONE || "+971 2 642 7667";
 const WHATSAPP_PHONE =
   process.env.NEXT_PUBLIC_WHATSAPP_PHONE || DEFAULT_WHATSAPP_PHONE || "971543078430";
-const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@abctyping.ae";
+const EMAIL_ADDRESS =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL || DEFAULT_CONTACT_EMAIL || "abctyping26@gmail.com";
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [mounted, setMounted] = useState(false);

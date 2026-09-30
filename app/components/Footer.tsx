@@ -141,12 +141,12 @@ export default function Footer() {
             >
               Services Directory
             </button>
-            <a href="#site-footer" className="hover:text-white transition-colors">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
-            </a>
-            <a href="#site-footer" className="hover:text-white transition-colors">
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-white transition-colors">
               Terms of Service
-            </a>
+            </Link>
             <span className="text-white/60">
               ISO 27001 Certified
             </span>

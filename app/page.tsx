@@ -11,6 +11,7 @@ import WhatBusinessesNeedSection from "./components/WhatBusinessesNeedSection";
 import BusinessSpaceSection from "./components/BusinessSpaceSection";
 import WhyUsSection from "./components/WhyUsSection";
 import RequirementToResolutionSection from "./components/RequirementToResolutionSection";
+import EnquirySection from "./components/EnquirySection";
 import CtaDisksSection from "./components/CtaDisksSection";
 import Footer from "./components/Footer";
 
@@ -854,6 +855,9 @@ export default function Home() {
 
       {/* ================= SECTION 7: FROM REQUIREMENT TO RESOLUTION (ZIG-ZAG TIMELINE CAPSULES) ================= */}
       <RequirementToResolutionSection />
+
+      {/* ================= LEAD ENQUIRY & CONSULTATION SECTION ================= */}
+      <EnquirySection />
 
       {/* ================= SECTION 8: 3-DISK DVD CTA SECTION ================= */}
       <CtaDisksSection />
