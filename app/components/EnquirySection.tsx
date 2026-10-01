@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { getWhatsAppUrl, WHATSAPP_MESSAGES, DEFAULT_CONTACT_PHONE, DEFAULT_CONTACT_EMAIL } from "../utils/whatsapp";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || "https://abc-server-s6rb.onrender.com";
 
 const SERVICE_OPTIONS: { id: string; label: string }[] = [
   { id: "business-setup", label: "Business Setup & Company Registration" },
@@ -78,20 +78,21 @@ export default function EnquirySection() {
     };
 
     try {
-      // 1. Send to Backend API
-      try {
-        await fetch(`${API_BASE_URL}/api/v1/client/enquiry`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(enquiryPayload),
-        });
-      } catch (networkErr) {
-        console.warn("Backend offline or unreachable, mirroring locally:", networkErr);
+      // 1. Send to Live Express Backend API
+      const res = await fetch(`${API_BASE_URL}/api/v1/client/enquiry`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(enquiryPayload),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData?.message || "Failed to submit enquiry to server");
       }
 
-      // 2. Mirror to LocalStorage abc_enquiries for instant local dev & cross-port parity
+      // 2. Mirror to LocalStorage abc_enquiries for instant cross-tab parity
       try {
         const stored = localStorage.getItem("abc_enquiries");
         const list = stored ? JSON.parse(stored) : [];
@@ -116,8 +117,13 @@ export default function EnquirySection() {
       setSubmissionTime(fullTimeString);
       setSubmittedService(resolvedServiceName);
       setSubmitted(true);
-    } catch {
-      setError("Unable to submit enquiry. Please try again or reach us via WhatsApp.");
+    } catch (err: unknown) {
+      console.error("Enquiry submission error:", err);
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Unable to submit enquiry. Please try again or reach us via WhatsApp.";
+      setError(msg);
     } finally {
       setIsSubmitting(false);
     }
