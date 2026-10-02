@@ -93,14 +93,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon.png", sizes: "500x500", type: "image/png" },
-      { url: "/logo.jpg", sizes: "500x500", type: "image/jpeg" },
+      { url: "/favicon.ico?v=2" },
+      { url: "/icon.png?v=2", sizes: "500x500", type: "image/png" },
+      { url: "/logo.jpg?v=2", sizes: "500x500", type: "image/jpeg" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon.ico?v=2",
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/logo.jpg" },
+      { url: "/apple-icon.png?v=2", sizes: "180x180", type: "image/png" },
+      { url: "/logo.jpg?v=2" },
     ],
   },
 };
