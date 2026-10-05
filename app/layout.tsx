@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import localFont from "next/font/local";
+import ServerWarmer from "./components/ServerWarmer";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -272,6 +273,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${satoshi.className} min-h-full flex flex-col bg-white text-neutral-900`}>
+        <ServerWarmer />
         {children}
       </body>
     </html>
